@@ -1,4 +1,4 @@
-import { createContext, useRef, useState } from 'react'
+import { createContext, useEffect, useRef, useState } from 'react'
 import { songsData } from '../assets/assets';
 export const PlayerContext= createContext();
 
@@ -31,6 +31,43 @@ const PlayerContextProvider = (props) => {
         setplaystaus(false)
       
     }
+    const playId=async(id)=>{
+
+      await settrack(songsData[id]);
+      await audioRef.current.play();
+      setplaystaus(true)
+
+
+    }
+
+    useEffect(()=>{
+
+
+      seekbr.current.style.width=(Math.floor(audioRef.current.currentTime/audioRef.current.duration*100))+"%";
+
+      setTimeout(() => {
+        audioRef.current.ontimeupdate=()=>{
+          settime({
+    currentTime:{
+      second:Math.floor(audioRef.current.currentTime%60),
+      minute:Math.floor(audioRef.current.currentTime/60)
+    },
+     totalTime:
+     {
+      second:Math.floor(audioRef.current.duration%60),
+      minute:Math.floor(audioRef.current.duration/60)
+    }
+
+  })
+
+        }
+      }, 1000);
+
+
+
+    },
+  
+  )
 
 
 const  contextValue={
@@ -40,7 +77,8 @@ const  contextValue={
   track,settrack,
   playstatus,setplaystaus,
   time,settime,
-  pause,play
+  pause,play,
+  playId
 
 }
   return (
