@@ -31,7 +31,7 @@ const PlayerContextProvider = (props) => {
         setplaystaus(false)
       
     }
-    const playId=async(id)=>{
+    const playId=async (id)=>{
 
       await settrack(songsData[id]);
       await audioRef.current.play();
@@ -68,7 +68,10 @@ const PlayerContextProvider = (props) => {
     },
   
   )
+  const seeksong=async(e)=>{
+    audioRef.current.currentTime=((e.nativeEvent.offsetX / seekbg.current.offsetWidth)*audioRef.current.duration)
 
+  }
 
 const  contextValue={
   audioRef,
@@ -78,7 +81,8 @@ const  contextValue={
   playstatus,setplaystaus,
   time,settime,
   pause,play,
-  playId
+  playId,
+  seeksong
 
 }
   return (

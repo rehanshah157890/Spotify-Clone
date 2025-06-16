@@ -5,7 +5,7 @@ import { PlayerContext } from './PlayerContext'
 
 const Player = () => {
 
-    const {track,seekbr,seekbg,playstatus,play,pause,time}=useContext(PlayerContext)
+    const {track,seekbr,seekbg,playstatus,play,pause,time,seeksong}=useContext(PlayerContext)
 
 
 
@@ -34,7 +34,7 @@ const Player = () => {
             </div>
             <div className='flex items-center gap-5'>
                 <p>{time.currentTime.minute}:{time.currentTime.second}</p>
-                <div ref={seekbg} className='w-[60vw] max-w-[500px] bg-gray-300 rounded-full cursor-pointer'>
+                <div ref={seekbg} onClick={seeksong} className='w-[60vw] max-w-[500px] bg-gray-300 rounded-full cursor-pointer'>
 <hr ref={seekbr} className='h-1 border-none  w-0 bg-green-800 rounded-full'/>
                 </div>
                 <p>{time.totalTime.minute}:{time.totalTime.second}</p>
